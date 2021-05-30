@@ -9,6 +9,7 @@ namespace CarServiceCare.Models
 {
     public class CarDTO
     {
+        public int Id { get; set; }
         public string Name { get; set; }
 
         public CarBrandsEnum CarBrand { get; set; }

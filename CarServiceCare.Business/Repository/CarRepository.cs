@@ -3,6 +3,7 @@ using CarServiceCare.Business.Repository.IRepository;
 using CarServiceCare.DataAccess.Data;
 using CarServiceCare.DataAccess.Data.DbModels;
 using CarServiceCare.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,24 +32,83 @@ namespace CarServiceCare.Business.Repository
             return _mapper.Map<Car, CarDTO>(addCar.Entity);
         }
 
-        public Task<IEnumerable<CarDTO>> GetAllCar()
+        public async Task<IEnumerable<CarDTO>> GetAllCar()
         {
-            throw new NotImplementedException();
+            try
+            {
+                IEnumerable<CarDTO> carDTOs = _mapper.Map<IEnumerable<Car>, IEnumerable<CarDTO>>(_db.Cars);
+                return carDTOs;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public Task<CarDTO> GetCar(int carId)
+        public async Task<CarDTO> GetCar(int carId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                CarDTO car = _mapper.Map<Car, CarDTO>(await _db.Cars.FirstOrDefaultAsync(x => x.Id == carId));
+
+                return car;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
-        public Task<CarDTO> IsSameCarAlreadyPresent(string name)
+        public async Task<int> DeleteCar(int carId)
         {
-            throw new NotImplementedException();
+
+                var carDetails = await _db.Cars.FindAsync(carId);
+                if(carDetails != null) 
+                {
+                    _db.Cars.Remove(carDetails);
+                    return await _db.SaveChangesAsync();
+                }
+
+                return 0;
+
         }
 
-        public Task<CarDTO> UpdateCar(int carId, CarDTO carDTO)
+        public async Task<CarDTO> IsCarUnique(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                CarDTO car = _mapper.Map<Car, CarDTO>(await _db.Cars.FirstOrDefaultAsync(x => x.Name == name));
+
+                return car;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<CarDTO> UpdateCar(int carId, CarDTO carDTO)
+        {   
+            try
+            {
+                if(carId == carDTO.Id)
+                {
+                    Car carDetails = await _db.Cars.FindAsync(carId);
+                    Car car = _mapper.Map<CarDTO, Car>(carDTO, carDetails);
+                    var updatedCar = _db.Cars.Update(car);
+                    await _db.SaveChangesAsync();
+                    return _mapper.Map<Car, CarDTO>(updatedCar.Entity);
+                }
+                else
+                {
+                    return null;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }
