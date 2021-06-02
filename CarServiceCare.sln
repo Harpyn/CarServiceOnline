@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarServiceCare.Server", "CarServiceCare.Server\CarServiceCare.Server.csproj", "{2524DD7A-D2EC-45A3-B786-266B245709AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarServiceCare.DataAccess", "DataAccess\CarServiceCare.DataAccess.csproj", "{47FD6837-AED9-4A77-853C-AA9F92BA9200}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarServiceCare.DataAccess", "DataAccess\CarServiceCare.DataAccess.csproj", "{47FD6837-AED9-4A77-853C-AA9F92BA9200}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarServiceCare.Common", "CarServiceCare.Common\CarServiceCare.Common.csproj", "{F2A5CF94-5F7E-4B78-A914-9593F70C65D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarServiceCare.Common", "CarServiceCare.Common\CarServiceCare.Common.csproj", "{F2A5CF94-5F7E-4B78-A914-9593F70C65D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarServiceCare.Business", "CarServiceCare.Business\CarServiceCare.Business.csproj", "{9EF9DFD3-63F7-47A7-9520-EB965DF90BE6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarServiceCare.Business", "CarServiceCare.Business\CarServiceCare.Business.csproj", "{9EF9DFD3-63F7-47A7-9520-EB965DF90BE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarServiceCare.Models", "CarServiceCare.Models\CarServiceCare.Models.csproj", "{6DAFB4A6-9A85-48D6-91A6-FB30C8FDF766}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarServiceCare.Models", "CarServiceCare.Models\CarServiceCare.Models.csproj", "{6DAFB4A6-9A85-48D6-91A6-FB30C8FDF766}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

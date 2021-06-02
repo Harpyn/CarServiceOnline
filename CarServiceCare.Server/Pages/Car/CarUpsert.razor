@@ -1,0 +1,100 @@
+﻿@page "/car/create"
+@using Models
+@using Common.Enums.Car
+@using Business.Repository.IRepository
+@inject ICarRepository CarRepository
+@inject NavigationManager NavigationManager
+
+    <div class="row mt-4">
+        <h3 class="card-title text-info mb-3 ml-3">@Title káru</h3>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <EditForm Model="CarModel" OnValidSubmit="HandleCarUpsert">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary />
+                        <div class="form-group">
+                            <label>Název (pro identifikaci)</label>
+                            <InputText @bind-Value="CarModel.Name" class="form-control"></InputText>
+                            <ValidationMessage For="()=>CarModel.Name"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <label>Značka</label>
+                            <InputSelectEnum @bind-Value="CarModel.CarBrand" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Model</label>
+                            <InputText @bind-Value="CarModel.Model" class="form-control"></InputText>
+                        </div>
+                        <div class="form-group">
+                            <label>Karoserie</label>
+                            <InputSelectEnum @bind-Value="CarModel.VehicleType" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Palivo</label>
+                            <InputSelectEnum @bind-Value="CarModel.FuelType" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Objem</label>
+                            <InputNumber @bind-Value="CarModel.CubicCapacity" class="form-control"></InputNumber>
+                        </div>
+                        <div class="form-group">
+                            <label>Výkon</label>
+                            <InputNumber @bind-Value="CarModel.Power" class="form-control"></InputNumber>
+                        </div>
+                        <div class="form-group">
+                            <label>Datum nákupu</label>
+                            <InputDate @bind-Value="CarModel.DateOfPurchase" class="form-control"></InputDate>
+                        </div>
+                        <div class="form-group">
+                            <label>Datum první registrace</label>
+                            <InputDate @bind-Value="CarModel.FirstRegistration" class="form-control"></InputDate>
+                        </div>
+                        <div class="form-group">
+                            <label>Barva</label>
+                            <InputText @bind-Value="CarModel.Color" class="form-control"></InputText>
+                        </div>
+                        <div class="form-group">
+                            <label>Státní poznávací značka</label>
+                            <InputText @bind-Value="CarModel.LicensePlate" class="form-control"></InputText>
+                        </div>
+                        <div class="form-group">
+                            <label>VIN</label>
+                            <InputText @bind-Value="CarModel.VIN" class="form-control"></InputText>
+                        </div>
+                        <div class="form-group">
+                            <label>Nájezd</label>
+                            <InputNumber @bind-Value="CarModel.Kilometer" class="form-control"></InputNumber>
+                        </div>
+                        <div class="form-group">
+                            <label>Počet předchozí majitelů</label>
+                            <InputNumber @bind-Value="CarModel.Owners" class="form-control"></InputNumber>
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary">@Title</button>
+                            <NavLink href="car/list" class="btn btn-secondary">Zpět na seznam</NavLink>
+                        </div>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    @code {
+        private CarDTO CarModel { get; set; } = new CarDTO();
+        public string Title { get; set; } = "Přidat auto";
+
+        private async Task HandleCarUpsert()
+        {
+            var carByName = await CarRepository.IsCarUnique(CarModel.Name);
+            if (carByName != null)
+            {
+                //duplicate car show error
+                return;
+            }
+            var createdResult = await CarRepository.CreateCar(CarModel);
+            NavigationManager.NavigateTo("car/list");
+        }
+    }

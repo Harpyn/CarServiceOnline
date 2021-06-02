@@ -1,6 +1,7 @@
 ﻿using CarServiceCare.Common.Enums.Car;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,13 @@ namespace CarServiceCare.Models
     public class CarDTO
     {
         public int Id { get; set; }
+        [Required(ErrorMessage = "Vyplňte jméno pro identifikace vozidla, může být libovolné")]
         public string Name { get; set; }
-
+        [Required]
         public CarBrandsEnum CarBrand { get; set; }
-
+        [Required]
         public VehicleTypesEnum VehicleType { get; set; }
-
+        [Required]
         public FuelTypesEnum FuelType { get; set; }
 
         public int CubicCapacity { get; set; }
@@ -30,8 +32,10 @@ namespace CarServiceCare.Models
 
         public decimal Price { get; set; }
 
+        [Required(ErrorMessage = "Datum první registrace musí být vyplněn")]
         public DateTime FirstRegistration { get; set; }
 
+        [Required(ErrorMessage = "Datum nákupu musí být vyplněn")]
         public DateTime DateOfPurchase { get; set; }
 
         public string Model { get; set; }

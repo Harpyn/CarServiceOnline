@@ -1,3 +1,5 @@
+using CarServiceCare.Business.Repository;
+using CarServiceCare.Business.Repository.IRepository;
 using CarServiceCare.DataAccess.Data;
 using CarServiceCare.Server.Data;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +33,7 @@ namespace CarServiceCare.Server
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddScoped<ICarRepository, CarRepository>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();

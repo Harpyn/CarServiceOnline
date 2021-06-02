@@ -7,14 +7,15 @@ namespace CarServiceCare.DataAccess.Data.DbModels
 {
     public class Car : BaseEntity
     {
+        [Required]
         public User User { get; set; }
-
+        [Required]
         public string Name { get; set; }
-
+        [Required]
         public CarBrandsEnum CarBrand { get; set; }
-
+        [Required]
         public VehicleTypesEnum VehicleType { get; set; }
-
+        [Required]
         public FuelTypesEnum FuelType { get; set; }
  
         public int CubicCapacity { get; set; }
@@ -28,9 +29,9 @@ namespace CarServiceCare.DataAccess.Data.DbModels
         public int Owners { get; set; }
    
         public decimal Price { get; set; }
-
+        [Required]
         public DateTime FirstRegistration { get; set; }
-
+        [Required]
         public DateTime DateOfPurchase { get; set; }
     
         public string Model { get; set; }

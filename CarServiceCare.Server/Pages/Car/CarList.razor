@@ -1,0 +1,68 @@
+﻿@page "/car/list"
+@using Models
+@using Common.Enums
+@using Business.Repository.IRepository
+@inject ICarRepository CarRepository
+
+
+<div class="row mt-4">
+    <div class="col-8">
+        <h4 class="card-title text-info">Car List</h4>
+    </div>
+    <div class="col-3 offset-1">
+        <NavLink class="btn btn-info form-control" href="car/create">Přidat káru</NavLink>
+    </div>
+
+</div>
+<div>
+    <div>
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Název</th>
+                    <th>Značka</th>
+                    <th>Model</th>
+                    <th>Karoserie</th>
+                    <th>Palivo</th>
+                    <th>Objem</th>
+                    <th>Výkon</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (AllCars.Any())
+                {
+                    foreach (var car in AllCars)
+                    {
+                <tr>
+                    <td>@car.Name</td>
+                    <td>@car.CarBrand.GetDisplayName()</td>
+                    <td>@car.Model</td>
+                    <td>@car.VehicleType.GetDisplayName()</td>
+                    <td>@car.FuelType.GetDisplayName()</td>
+                    <td>@car.CubicCapacity</td>
+                    <td>@car.Power</td>
+                    <td></td>
+                </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">Žádné záznamy</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    private IEnumerable<CarDTO> AllCars { get; set; } = new List<CarDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        AllCars = await CarRepository.GetAllCar();
+    }
+}
