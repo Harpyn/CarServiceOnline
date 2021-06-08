@@ -14,7 +14,7 @@ namespace CarServiceCare.Business.Repository.IRepository
         public Task<CarDTO> GetCar(int carId);
         public Task<int> DeleteCar(int carId);
         public Task<IEnumerable<CarDTO>> GetAllCar();
-        public Task<CarDTO> IsCarUnique(string name);
+        public Task<CarDTO> IsCarUnique(string name, int carId = 0);
 
     }
 }

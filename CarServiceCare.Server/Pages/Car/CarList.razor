@@ -43,7 +43,7 @@
                     <td>@car.FuelType.GetDisplayName()</td>
                     <td>@car.CubicCapacity</td>
                     <td>@car.Power</td>
-                    <td></td>
+                    <td><NavLink href="@($"/car/edit/{car.Id}")" class="btn btn-primary">Edit</NavLink></td>
                 </tr>
                     }
                 }

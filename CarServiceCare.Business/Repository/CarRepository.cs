@@ -73,13 +73,24 @@ namespace CarServiceCare.Business.Repository
 
         }
 
-        public async Task<CarDTO> IsCarUnique(string name)
+        public async Task<CarDTO> IsCarUnique(string name, int carId = 0)
         {
             try
             {
-                CarDTO car = _mapper.Map<Car, CarDTO>(await _db.Cars.FirstOrDefaultAsync(x => x.Name == name));
+                if (carId == 0)
+                {
+                    CarDTO car = _mapper.Map<Car, CarDTO>(await _db.Cars.FirstOrDefaultAsync(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase)));
 
-                return car;
+                    return car;
+                }
+                else
+                {
+                    CarDTO car = _mapper.Map<Car, CarDTO>(await _db.Cars.FirstOrDefaultAsync(x => string.Equals(x.Name, name, StringComparison.CurrentCultureIgnoreCase) && x.Id != carId));
+
+                    return car;
+
+                }
+                
             }
             catch (Exception ex)
             {
