@@ -16,5 +16,6 @@ namespace CarServiceCare.DataAccess.Data
         public DbSet<STK> STK { get; set; }
         public DbSet<TireChange> TireChanges { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<CarImage> CarImages { get; set; }
     }
 }

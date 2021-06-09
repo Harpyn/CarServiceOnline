@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CarServiceCare.Common.Enums.Expense;
 
 namespace CarServiceCare.DataAccess.Data.DbModels
@@ -7,10 +8,11 @@ namespace CarServiceCare.DataAccess.Data.DbModels
     {
 
         [Display(Name = "Auto")]
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
         //Druh
         public ExpensesEnum Type { get; set; }
         //Cena
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
     }

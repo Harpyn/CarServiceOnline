@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarServiceCare.DataAccess.Data.DbModels
 {
@@ -6,7 +7,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
     {
 
  
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
         //Kategorie
     
         public string ServiceType { get; set; }
@@ -19,7 +20,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
         //Tachometr
         public string Kilometer { get; set; }
         //Cena
-     
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
     }

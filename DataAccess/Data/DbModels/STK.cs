@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CarServiceCare.Common.Enums.STK;
 
 namespace CarServiceCare.DataAccess.Data.DbModels
@@ -7,7 +8,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
     public class STK : BaseEntity
     {
 
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
   
         public DateTime ValidTo { get; set; }
       
@@ -16,7 +17,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
         public string Description { get; set; }
 
         public int Kilometer { get; set; }
-
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
  
         public STKResultEnum Passed { get; set; }

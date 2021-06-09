@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CarServiceCare.Common.Enums.Repair;
 
 namespace CarServiceCare.DataAccess.Data.DbModels
@@ -7,12 +8,12 @@ namespace CarServiceCare.DataAccess.Data.DbModels
     {
 
 
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
         //Oprava
 
         public string RepairType { get; set; }
         //Odhadovaná cena
-
+        [Column(TypeName = "decimal(18,4)")]
         public decimal EstimatedPrice { get; set; }
         //Priorita
 

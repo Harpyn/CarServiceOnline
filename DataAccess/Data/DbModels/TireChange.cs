@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarServiceCare.DataAccess.Data.DbModels
 {
     public class TireChange : BaseEntity
     {
-        public Car Car { get; set; }
+        public virtual Car Car { get; set; }
         //Počet
 
         public int Quantity { get; set; }
@@ -21,7 +22,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
 
         public int Kilometer { get; set; }
         //Cena
-  
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
     }

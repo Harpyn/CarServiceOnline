@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using CarServiceCare.Common.Enums.Car;
 
 namespace CarServiceCare.DataAccess.Data.DbModels
@@ -8,7 +9,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
     public class Car : BaseEntity
     {
         [Required]
-        public User User { get; set; }
+        public virtual User User { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
@@ -27,7 +28,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
         public int Kilometer { get; set; }
  
         public int Owners { get; set; }
-   
+        [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
         [Required]
         public DateTime FirstRegistration { get; set; }
@@ -42,13 +43,14 @@ namespace CarServiceCare.DataAccess.Data.DbModels
 
 
         //reference to objects
-        public ICollection<STK> STK { get; set; }
-        public ICollection<CarInsurance> CarInsurances { get; set; }
-        public ICollection<Expense> Expenses { get; set; }
-        public ICollection<Refueling> Refuelings { get; set; }
-        public ICollection<Repair> Repairs { get; set; }
-        public ICollection<Service> Services { get; set; }     
-        public ICollection<TireChange> TireChanges { get; set; }
+        public virtual ICollection<STK> STK { get; set; }
+        public virtual ICollection<CarInsurance> CarInsurances { get; set; }
+        public virtual ICollection<Expense> Expenses { get; set; }
+        public virtual ICollection<Refueling> Refuelings { get; set; }
+        public virtual ICollection<Repair> Repairs { get; set; }
+        public virtual ICollection<Service> Services { get; set; }     
+        public virtual ICollection<TireChange> TireChanges { get; set; }
+        public virtual ICollection<CarImage> CarImages { get; set; }
 
     }
 }
