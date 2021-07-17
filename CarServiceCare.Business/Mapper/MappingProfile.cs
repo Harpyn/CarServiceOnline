@@ -1,11 +1,7 @@
 ﻿using AutoMapper;
 using CarServiceCare.DataAccess.Data.DbModels;
+using CarServiceCare.DataAccess.Data.Images;
 using CarServiceCare.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarServiceCare.Business.Mapper
 {
@@ -15,6 +11,8 @@ namespace CarServiceCare.Business.Mapper
         {
             CreateMap<CarDTO, Car>();
             CreateMap<Car, CarDTO>();
+
+            CreateMap<CarImage, CarImageDTO>().ReverseMap();
         }
     }
 }

@@ -2,6 +2,8 @@ using CarServiceCare.Business.Repository;
 using CarServiceCare.Business.Repository.IRepository;
 using CarServiceCare.DataAccess.Data;
 using CarServiceCare.Server.Data;
+using CarServiceCare.Server.Service;
+using CarServiceCare.Server.Service.IService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +36,8 @@ namespace CarServiceCare.Server
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<ICarRepository, CarRepository>();
+            services.AddScoped<ICarImagesRepository, CarImagesRepository>();
+            services.AddScoped<IFileUpload, FileUpload>();
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<WeatherForecastService>();

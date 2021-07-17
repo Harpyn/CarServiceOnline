@@ -17,7 +17,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
         public string Description { get; set; }
 
         public int Kilometer { get; set; }
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
  
         public STKResultEnum Passed { get; set; }

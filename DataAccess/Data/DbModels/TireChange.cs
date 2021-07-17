@@ -22,7 +22,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
 
         public int Kilometer { get; set; }
         //Cena
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
     }

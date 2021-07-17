@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using CarServiceCare.Common.Enums.Car;
+using CarServiceCare.DataAccess.Data.Images;
 
 namespace CarServiceCare.DataAccess.Data.DbModels
 {
@@ -28,7 +29,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
         public int Kilometer { get; set; }
  
         public int Owners { get; set; }
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         [Required]
         public DateTime FirstRegistration { get; set; }

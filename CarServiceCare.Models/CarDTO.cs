@@ -43,5 +43,9 @@ namespace CarServiceCare.Models
         public string Color { get; set; }
 
         public string LicensePlate { get; set; }
+
+        public virtual ICollection<CarImageDTO> CarImages { get; set; }
+
+        public List<string> ImageUrls { get; set; }
     }
 }

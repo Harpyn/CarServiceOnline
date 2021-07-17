@@ -13,7 +13,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
 
         public string RepairType { get; set; }
         //Odhadovaná cena
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal EstimatedPrice { get; set; }
         //Priorita
 

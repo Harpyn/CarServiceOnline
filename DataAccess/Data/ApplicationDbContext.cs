@@ -1,4 +1,5 @@
 ﻿using CarServiceCare.DataAccess.Data.DbModels;
+using CarServiceCare.DataAccess.Data.Images;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarServiceCare.DataAccess.Data

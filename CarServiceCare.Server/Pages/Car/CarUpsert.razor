@@ -5,8 +5,10 @@
 @using Common.Enums.Car
 @using Business.Repository.IRepository
 @inject ICarRepository CarRepository
+@inject ICarImagesRepository CarImagesRepository
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JsRuntime
+@inject IFileUpload FileUpload
 
 <div class="row mt-4">
     <h3 class="card-title text-info mb-3 ml-3">@Title</h3>
@@ -73,7 +75,28 @@
                         <label>Počet předchozí majitelů</label>
                         <InputNumber @bind-Value="CarModel.Owners" class="form-control"></InputNumber>
                     </div>
+                    <div class="form-group">
+                        <InputFile OnChange="HandleImageUpload" multiple></InputFile>
+                        <div class="row">
+                            @if (CarModel.ImageUrls != null && CarModel.ImageUrls.Count > 0)
+                            {
+                                int serial = 1;
+                                foreach (var roomImage in CarModel.ImageUrls)
+                                {
+                                    <div class="col-md-2 mt-3">
+                                        <div class="car-image" style="background: url('@roomImage') 50% 50%; ">
+                                            <span class="car-image-title">@serial</span>
+                                        </div>
 
+                                        <button type="button" class="btn btn-outline-danger btn-block mt-4">
+                                            Delete
+                                        </button>
+                                    </div>
+                                    serial++;
+                                }
+                            }
+                        </div>
+                    </div>
                     <div class="form-group">
                         <button class="btn btn-primary">@Title</button>
                         <NavLink href="car/list" class="btn btn-secondary">Zpět na seznam</NavLink>
@@ -89,7 +112,8 @@
     [Parameter]
     public int? Id { get; set; }
     private CarDTO CarModel { get; set; } = new CarDTO();
-    public string Title { get; set; } = "Přidat vozidlo";
+    private string Title { get; set; } = "Přidat vozidlo";
+    private CarImageDTO CarImage { get; set; } = new CarImageDTO();
 
     protected override async Task OnInitializedAsync()
     {
@@ -125,6 +149,7 @@
             else
             {
                 var createdResult = await CarRepository.CreateCar(CarModel);
+                await AddCarImage(createdResult);
                 await JsRuntime.ToastrSuccess("Vozidlo úspěšně přidáno.");
             }
         }
@@ -136,5 +161,65 @@
 
 
         NavigationManager.NavigateTo("car/list");
+    }
+    private async Task HandleImageUpload(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var images = new List<string>();
+            if(e.GetMultipleFiles().Count > 0)
+            {
+                foreach (var file in e.GetMultipleFiles())
+                {
+                    System.IO.FileInfo fileInfo = new System.IO.FileInfo(file.Name);
+                    if (fileInfo.Extension.ToLower() == ".jpg" ||
+                        fileInfo.Extension.ToLower() == ".png" ||
+                        fileInfo.Extension.ToLower() == ".jpeg")
+                    {
+                        var uploadedImagePath = await FileUpload.UploadFile(file);
+                        images.Add(uploadedImagePath);
+                    }
+                    else
+                    {
+                        await JsRuntime.ToastrWarning("Povolené formáty jsou pouze .jpg .png .jpeg");
+                    }
+                }
+                if(images.Any())
+                {
+                    if(CarModel.ImageUrls!=null && CarModel.ImageUrls.Any())
+                    {
+                        CarModel.ImageUrls.AddRange(images);
+                    }
+                    else
+                    {
+                        CarModel.ImageUrls = new List<string>();
+                        CarModel.ImageUrls.AddRange(images);
+                    }
+                }
+                else
+                {
+                    await JsRuntime.ToastrError("Obrázek se nepodařilo nahrát");
+                    return;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+
+            await JsRuntime.ToastrError(ex.Message);
+        }
+    }
+    private async Task AddCarImage(CarDTO carDetails)
+    {
+
+        foreach (var imageUrl in CarModel.ImageUrls)
+        {
+            CarImage = new CarImageDTO()
+            {
+                CarId = carDetails.Id,
+                ImageUrl = imageUrl,
+            };
+            await CarImagesRepository.CreateCarImage(CarImage);
+        }
     }
 }

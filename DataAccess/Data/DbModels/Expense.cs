@@ -12,7 +12,7 @@ namespace CarServiceCare.DataAccess.Data.DbModels
         //Druh
         public ExpensesEnum Type { get; set; }
         //Cena
-        [Column(TypeName = "decimal(18,4)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
     }
